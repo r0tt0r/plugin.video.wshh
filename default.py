@@ -23,15 +23,9 @@ ua='Mozilla/5.0 (X11; Linux x86_64; rv:18.0) Gecko/18.0 Firefox/18.0'
 base = 'http://www.worldstarhiphop.com/videos/index.php?start='
 x='0'
 p='&limit=15'
-
-url=base+x+p
-ACTION_SELECT_ITEM = 7
-
-def CATEGORIES():                               
-        addDir('Videos',base,1,q)
-        xbmcplugin.endOfDirectory(pluginhandle)
         
-def INDEX(url):
+def INDEX():
+		url=base+x+p
 		req=urllib2.Request(url)
 		req.add_header('User-Agent', ua)
 		response = urllib2.urlopen(req)
@@ -75,7 +69,7 @@ def VIDEOLINKS(url,name):
 			for url in match:
 				addLink(name,url,'')
 				xbmc.executebuiltin("xbmc.PlayMedia("+url+")")
-				xbmcplugin.endOfDirectory(pluginhandle)
+		xbmcplugin.endOfDirectory(pluginhandle)
 
 def get_params():
         param=[]
@@ -134,7 +128,7 @@ print "Name: "+str(name)
 
 if mode==None or url==None or len(url)<1:
 		print ""
-		CATEGORIES()
+		INDEX()
        
 elif mode==1:
 		print ""+url
